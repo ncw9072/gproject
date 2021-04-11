@@ -9,10 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.context.support.WebApplicationObjectSupport;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.AbstractView;
 
 /* ** 추상 클래스 AbstractView code 일부
@@ -53,7 +50,7 @@ public class DownloadView extends AbstractView{
         if(ie){
             fileName = URLEncoder.encode(file.getName(), "utf-8");
         } else {
-            fileName = new String(file.getName().getBytes("utf-8"));
+            fileName = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
         }// end if;
  
          

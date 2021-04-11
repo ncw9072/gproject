@@ -22,5 +22,9 @@ public class MusicDAO {
 		return sqlSession.selectList(NS+"selectList");
 	} //selectList
 	
+	// ** selctOne
+		public MusicVO selectOne(MusicVO vo) {
+			return sqlSession.selectOne(NS + "selectOne", vo);
+		} // selctOne
 
 } //class

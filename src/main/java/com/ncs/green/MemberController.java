@@ -85,7 +85,7 @@ public class MemberController {
 
 		// 실습2) ver02 (배포환경 or 개발환경)
 		if (realPath.contains(".eclipse.")) {
-			realPath = "D:/jaepil/MyWork/gproject/src/main/webapp/resources/uploadImage";
+			realPath = "C:/NamCheolWoo/MyWork/gproject/src/main/webapp/resources/uploadImage";
 		} else {
 			realPath += "resources/uploadImage/";
 		}
@@ -308,7 +308,7 @@ public class MemberController {
 		// ** 경로
 		String realPath = request.getRealPath("/");
 		if (realPath.contains(".eclipse.")) {
-			realPath = "D:/Jeong/gproject/src/main/webapp/resources/uploadImage/";
+			realPath = "C:/NamCheolWoo/gproject/src/main/webapp/resources/uploadImage/";
 		} else {
 			realPath += "resources/uploadImage/";
 		}
@@ -363,7 +363,6 @@ public class MemberController {
 	@RequestMapping(value = "/memberdelete")
 	public ModelAndView memberdelete(ModelAndView mv, HttpServletRequest request, GmemberVO vo, RedirectAttributes rttr)
 			throws UnsupportedEncodingException {
-		System.out.println("넘어오나?");
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("loginID") != null) {
 			// 삭제준비

@@ -17,5 +17,7 @@ public class MusicServiceimpl implements MusicService{
 	public List<MusicVO> selectList() {
 		return dao.selectList(); 
 	} //selectList
-	
+	public MusicVO selectOne(MusicVO vo) {
+		return dao.selectOne(vo);
+	} // selectOne
 }

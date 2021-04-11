@@ -5,7 +5,14 @@
 
 <!-- ******************************* -->
 <select id="selectList" resultType="vo.MusicVO">
-	 select * from music order by snum
+	 select * from music order by releasedate desc
+</select>
+
+<select id="selectOne" resultType="vo.MusicVO">
+	<!-- select * from music where snum=#{snum} -->
+	select snum, sname, stitle, singername, releasedate, genre, 
+		replace(lyrics,'-','') lyrics, country, musicurl, 
+		downloadfile, image, count from music where snum=#{snum}
 </select>
 
 </mapper>  

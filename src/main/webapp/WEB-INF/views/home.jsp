@@ -277,7 +277,7 @@ a {
 	<div id="section">
 		<div id="sec1">
 			<div>
-				<a href="musictest">musictest</a>
+				<a href="musiclist">musictest</a>
 				<%-- <table width=800 border="1">
 					<tr align="center" height="30" bgcolor="pink">
 						<td>sname</td>
