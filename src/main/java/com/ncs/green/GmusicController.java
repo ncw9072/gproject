@@ -46,11 +46,8 @@ public class GmusicController {
 		MusicVO vo2 = new MusicVO();
 		
 		String a = request.getParameter("snum");
-		System.out.println("*******  a "+a);
-		String acode = request.getParameter("acode");
-		String vs = request.getParameter("vs");
+		String jsoncode = request.getParameter("jsoncode");
 		System.out.println( " Test ******************* > "+a);
-
 		String[] arr = a.split(","); // String타입으로 들어온 파라미터를 배열로 다시 바꿔줌 (단, 중간에 체크안한 체크박스는 빈값으로 섞여 들어온다)
 		String dummy =null; // 배열을 정렬하기 위한 더미 변수생성
 		int blankcount = 0; // 빈값이 몇개인지 확인하기 위한 카운트
@@ -85,11 +82,10 @@ public class GmusicController {
 		if (vo1 != null) {
 			mv.addObject("Apple", vo1);
 			
-			if("A".equals(acode)) {
-				System.out.println("**********test***********");
-				
-				mv.addObject("vs", vs);
-				mv.setViewName("musicview/playlistajax");
+			if("A".equals(jsoncode)) {
+				mv.addObject("music", vo1.getDownloadfile());
+				 System.out.println("****************"+vo1.getDownloadfile());
+				mv.setViewName("jsonView");
 			}else {
 				mv.setViewName("musicview/playlist");
 			}
