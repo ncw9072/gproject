@@ -16,7 +16,12 @@ public class MusicDAO {
 	private SqlSession sqlSession;
 
 	private static final String NS = "com.ncs.MusicMapper.";
-
+	
+	// ** genreList
+	public List<MusicVO> genreList(MusicVO vo) {
+		return sqlSession.selectList(NS + "genreList", vo);
+	} // genreList
+	
 	// ** selectList
 	public List<MusicVO> selectList() {
 		return sqlSession.selectList(NS + "selectList");

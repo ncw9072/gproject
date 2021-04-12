@@ -4,6 +4,10 @@
 <mapper namespace="com.ncs.MusicMapper">
 
 <!-- ******************************* -->
+<select id="genreList" resultType="vo.MusicVO">
+	 select * from music where genre=#{genre} order by releasedate desc , sname 
+</select>
+
 <select id="selectList" resultType="vo.MusicVO">
 	 select * from music order by releasedate desc , sname
 </select>

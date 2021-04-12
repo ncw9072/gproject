@@ -14,6 +14,11 @@ public class MusicServiceimpl implements MusicService {
 	@Autowired
 	MusicDAO dao;
 
+	@Override
+	public List<MusicVO> genreList(MusicVO vo) {
+		return dao.genreList(vo);
+	} // genreList
+	
 	public List<MusicVO> selectList() {
 		return dao.selectList();
 	} // selectList
@@ -32,5 +37,5 @@ public class MusicServiceimpl implements MusicService {
 		// TODO Auto-generated method stub
 		return dao.selectdailyRank();
 	}
-
+	
 }

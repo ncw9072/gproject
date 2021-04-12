@@ -91,7 +91,7 @@ tr {
 		// https://webisfree.com/2017-09-07/html5-audio-태그-사용-예제보기 참고
 		document.getElementById("audioplay").volume = 0.5;
 
-	/* 		$.ajax({
+	 		$.ajax({
 				type : 'post',
 				url : 'musicCount',
 				data : {
@@ -103,7 +103,7 @@ tr {
 				error : function() {
 					console.log("실패");
 				}
-			});//count를 위한 값 넘기기 */
+			});//count를 위한 값 넘기기 
 
 	} //nowplay
 

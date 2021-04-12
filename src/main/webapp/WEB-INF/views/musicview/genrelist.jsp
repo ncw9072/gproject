@@ -130,7 +130,7 @@ a {
 
 /* section */
 #section {
-	height: 900px;
+	height: 2000px;
 	margin: 0 auto; /* 중앙정렬 */
 	width: 75%;
 	display: grid;
@@ -277,70 +277,43 @@ a {
 	</div>
 <!--//////////////////// section start //////////////////////////// -->
 	<div id="section">
-		<div id="sec1">
-			<div>
-				아
-				<%-- <table width=800 border="1">
-					<tr align="center" height="30" bgcolor="pink">
-						<td>sname</td>
-						<td>stitle</td>
-						<td>downloadfile</td>
-						<td>Image</td>
-					</tr>
-					<c:forEach var="row" items="${Banana}">
-						<tr>
-							<td><a href="mdetail?id=${row.id}">${row.id}</a></td>
-							<td>${row.sname}</td>
-							<td>${row.stitle}</td>
-							<td>${row.downloadfile}</td>
-							<td><img src="${row.image}" width="70" height="70">
-							</td>
-						</tr>
-					</c:forEach>
-				</table> --%>
-			</div>
-			<div>아</div>
-			<div>아</div>
-		</div>
-
-		<div id="sec2">
-			<div id="login">
-				<div id="login_location">
-					<c:if test="${empty loginID}">
-						<button type="button" id="login_button">로그인</button>
-					</c:if>
-					<!-- ----------------------------------로그인 후 페이지-------------------------- div로 해볼까 생각중;;-->
-					<c:if test="${loginID!=null}">
-						<div id="loginsuccess">
-							<div id="welcome" style="font-size: 23px">
-								<img src="resources/uploadImage/basicman1.jpg" width="40"
-									height="40">${loginID}님 환영합니다!!<br>
-								<br> <a href="mlogout"><button type="button"
-										id=logout_btn>로그아웃</button></a>
-								<!-- &nbsp;  -->
-								<a href="mypage?id=${loginID}"><button type="button"
-										id=logout_btn>내정보</button></a>
-							</div>
-						</div>
-					</c:if>
-				</div>
-			</div>
-
-			<!-- 일일,주간,월간 차트리스트 -->
-			<div id="chart" role="group">
-				<h3>** G-MUSIC 차트 **</h3>
-				<div>
-				<hr>
-				<span id="dailyChart" class="textLink">[일일차트]</span> &nbsp;&nbsp; <span
-					id="weeklist" class="textLink">[주간차트]</span>&nbsp;&nbsp; <span
-					id="monthlist" class="textLink">[월간차트]</span>&nbsp;&nbsp; <a
-					href="home">[Home]</a>&nbsp;&nbsp;
-				<hr>
-				</div>
-				<div id="chartArea"></div>
-				
-			</div>
-		</div>
+		<form name="musiclist">
+		<button type="button" onclick="getCheckboxValue()">플레이리스트</button>
+		<div id='result'></div>
+		<input type="hidden" id="snumVal" name="snumVal" value="">
+		<table style="width: 1200px;" border="1">
+			<tr align="center" height="2" bgcolor="pink">
+				<td width="50">
+					<input type="checkbox" id="check_all" name="check_all">
+				</td>
+				<td width="40">번 호</td>
+				<td>Image</td>
+				<td>곡 명</td>
+				<td>가 수</td>
+				<td>앨범명</td>
+				<td>downloadfile</td>
+			</tr>
+			<c:forEach var="row" items="${Banana}" varStatus="vs">
+				<tr>
+					<td align="center">
+						<input type="checkbox" class="normalCheck" id="snum${row.snum}" name="snum" value="${row.snum}">
+					</td>
+					<td align="center">${vs.count}</td>
+					<td>
+						<img src="${row.image}" width="70" height="70">
+					</td>
+					<td>
+						<button type="button" name="sname" value="${row.snum}">${row.sname}</button>
+					</td>
+					<td>${row.singername}</td>
+					<td>${row.stitle}</td>
+					<td>
+						<a href="dnload?dnfile=${row.downloadfile}">${row.downloadfile}</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</form>
 	</div>
 <!--//////////////////// section end //////////////////////////// -->
 	<div id="footer">

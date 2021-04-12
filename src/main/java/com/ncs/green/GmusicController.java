@@ -111,4 +111,14 @@ public class GmusicController {
 		 */
 	} // dnload
 
+	@RequestMapping(value = "/genrelist")
+	public ModelAndView genrelist(HttpServletRequest request, ModelAndView mv, HttpServletResponse response , MusicVO vo) {
+		System.out.println("***********Test "+vo.getGenre());
+		List<MusicVO> list = service.genreList(vo);
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}
+		mv.setViewName("musicview/genrelist");
+		return mv;
+	}
 }

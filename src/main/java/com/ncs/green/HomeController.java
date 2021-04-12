@@ -1,6 +1,5 @@
 package com.ncs.green;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.MusicService;
@@ -26,6 +24,7 @@ public class HomeController {
 
 	@Autowired
 	MusicService service;
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
