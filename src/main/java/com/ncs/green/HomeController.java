@@ -26,7 +26,6 @@ public class HomeController {
 
 	@Autowired
 	MusicService service;
-
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
