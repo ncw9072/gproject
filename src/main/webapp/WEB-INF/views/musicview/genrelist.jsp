@@ -129,8 +129,12 @@ a {
 /* nav */
 
 /* section */
+#table tr{
+	width:300px;
+}
+
 #section {
-	height: 2000px;
+	height: 3000px;
 	margin: 0 auto; /* 중앙정렬 */
 	width: 75%;
 	display: grid;
@@ -281,7 +285,7 @@ a {
 		<button type="button" onclick="getCheckboxValue()">플레이리스트</button>
 		<div id='result'></div>
 		<input type="hidden" id="snumVal" name="snumVal" value="">
-		<table style="width: 1200px;" border="1">
+		<table style="width: 1200px;" border="1" id="table">
 			<tr align="center" height="2" bgcolor="pink">
 				<td width="50">
 					<input type="checkbox" id="check_all" name="check_all">

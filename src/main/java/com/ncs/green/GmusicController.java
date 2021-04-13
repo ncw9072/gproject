@@ -17,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import oracle.sql.ARRAY;
 import service.MusicService;
+import vo.BoardVO;
 import vo.MusicVO;
+import vo.PageVO;
 
 @Controller
 public class GmusicController {
@@ -112,8 +114,23 @@ public class GmusicController {
 	} // dnload
 
 	@RequestMapping(value = "/genrelist")
-	public ModelAndView genrelist(HttpServletRequest request, ModelAndView mv, HttpServletResponse response , MusicVO vo) {
+	public ModelAndView genrelist(PageVO<MusicVO> pvo, HttpServletRequest request, ModelAndView mv, HttpServletResponse response , MusicVO vo) {
 		System.out.println("***********Test "+vo.getGenre());
+		/*
+		 * int currPage = 1; if ( pvo.getCurrPage() > 1 ) currPage = pvo.getCurrPage();
+		 * else pvo.setCurrPage(currPage);
+		 * 
+		 * int sno = (currPage-1)*pvo.getRowPerPage() + 1 ; int eno =
+		 * sno+pvo.getRowPerPage()-1; pvo.setSno(sno); pvo.setEno(eno);
+		 * 
+		 * 
+		 * pvo=service.pageList(pvo) ; int totalPageNo =
+		 * pvo.getTotalRowCount()/pvo.getRowPerPage(); if
+		 * (pvo.getTotalRowCount()%pvo.getRowPerPage() !=0 ) totalPageNo +=1;
+		 * 
+		 * int sPageNo = ((currPage-1)/pvo.getPageNoCount())*pvo.getPageNoCount()+1; int
+		 * ePageNo = (sPageNo+pvo.getPageNoCount())-1;
+		 */
 		List<MusicVO> list = service.genreList(vo);
 		if (list != null) {
 			mv.addObject("Banana", list);
