@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import criteria.Criteria;
+import criteria.PageMaker;
 import oracle.sql.ARRAY;
 import service.MusicService;
 import vo.BoardVO;
@@ -114,27 +116,22 @@ public class GmusicController {
 	} // dnload
 
 	@RequestMapping(value = "/genrelist")
-	public ModelAndView genrelist(PageVO<MusicVO> pvo, HttpServletRequest request, ModelAndView mv, HttpServletResponse response , MusicVO vo) {
-		System.out.println("***********Test "+vo.getGenre());
-		/*
-		 * int currPage = 1; if ( pvo.getCurrPage() > 1 ) currPage = pvo.getCurrPage();
-		 * else pvo.setCurrPage(currPage);
-		 * 
-		 * int sno = (currPage-1)*pvo.getRowPerPage() + 1 ; int eno =
-		 * sno+pvo.getRowPerPage()-1; pvo.setSno(sno); pvo.setEno(eno);
-		 * 
-		 * 
-		 * pvo=service.pageList(pvo) ; int totalPageNo =
-		 * pvo.getTotalRowCount()/pvo.getRowPerPage(); if
-		 * (pvo.getTotalRowCount()%pvo.getRowPerPage() !=0 ) totalPageNo +=1;
-		 * 
-		 * int sPageNo = ((currPage-1)/pvo.getPageNoCount())*pvo.getPageNoCount()+1; int
-		 * ePageNo = (sPageNo+pvo.getPageNoCount())-1;
-		 */
-		List<MusicVO> list = service.genreList(vo);
+	public ModelAndView genrelist(ModelAndView mv, Criteria cri, PageMaker pageMaker , MusicVO vo) {
+		System.out.println("***********Test "+vo.getGenre()); //vo엔 자동으로 장르만 들어와있음.
+		
+		cri.setRowPerPage(5); // 한 페이지당 20곡씩 출력
+		cri.setSnoEno();
+		vo.setSnoEno(cri);
+		
+		List<MusicVO> list = service.genreList(vo); //장르에 해당하는 곡목록이 들어옴
 		if (list != null) {
 			mv.addObject("Banana", list);
 		}
+		pageMaker.setCri(cri);	// 계산된 cri를 페이지 메이커의 필드변수에 담아줌
+		pageMaker.setTotalRow(service.genreRowCount(vo)); //  장르 곡목록의 수
+		
+		mv.addObject("pageMaker", pageMaker);
+		mv.addObject("musicGenre", vo.getGenre());
 		mv.setViewName("musicview/genrelist");
 		return mv;
 	}

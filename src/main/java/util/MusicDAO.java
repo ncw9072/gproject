@@ -21,6 +21,9 @@ public class MusicDAO {
 	public List<MusicVO> genreList(MusicVO vo) {
 		return sqlSession.selectList(NS + "genreList", vo);
 	} // genreList
+	public int genreRowCount(MusicVO vo) {
+		return sqlSession.selectOne(NS+ "genreRowCount",vo);
+	}
 	
 	// ** selectList
 	public List<MusicVO> selectList() {

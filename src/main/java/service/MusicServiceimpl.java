@@ -18,6 +18,10 @@ public class MusicServiceimpl implements MusicService {
 	public List<MusicVO> genreList(MusicVO vo) {
 		return dao.genreList(vo);
 	} // genreList
+	@Override
+	public int genreRowCount(MusicVO vo) {
+		return dao.genreRowCount(vo);
+	}
 	
 	public List<MusicVO> selectList() {
 		return dao.selectList();

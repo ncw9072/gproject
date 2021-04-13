@@ -5,7 +5,15 @@
 
 <!-- ******************************* -->
 <select id="genreList" resultType="vo.MusicVO">
-	 select * from music where genre=#{genre} order by releasedate desc , sname 
+<!-- 	 select * from music where genre=#{genre} order by releasedate desc , sname  -->
+	 select snum, sname, stitle, singername, releasedate, genre, replace(lyrics,'-','') lyrics, 
+	 country, musicurl, downloadfile, image, count, rnum 
+	 from (select m.*, ROW_NUMBER() OVER(order by releasedate desc , sname) rnum 
+	 from (select * from music where genre= #{genre} ) m ) where rnum between #{sno} and #{eno}
+</select>
+
+<select id="genreRowCount" resultType="int">
+	select count(*) from music where genre = #{genre}
 </select>
 
 <select id="selectList" resultType="vo.MusicVO">
