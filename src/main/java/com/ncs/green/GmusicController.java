@@ -121,9 +121,9 @@ public class GmusicController {
 		
 		cri.setRowPerPage(5); // 한 페이지당 20곡씩 출력
 		cri.setSnoEno();
-		vo.setSnoEno(cri);
+		cri.setGenre(vo.getGenre());
 		
-		List<MusicVO> list = service.genreList(vo); //장르에 해당하는 곡목록이 들어옴
+		List<MusicVO> list = service.genreList(cri); //장르에 해당하는 곡목록이 들어옴
 		if (list != null) {
 			mv.addObject("Banana", list);
 		}

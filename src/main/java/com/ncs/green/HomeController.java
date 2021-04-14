@@ -121,17 +121,5 @@ public class HomeController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/dailyChart")
-	public ModelAndView dailyChart(ModelAndView mv, HttpServletRequest request) {
-		List<MusicVO> list = service.selectdailyRank();
-
-		if (list != null) {
-			mv.addObject("Banana", list);
-		}
-
-		mv.addObject("Banana", list);
-		mv.setViewName("chart/chart");
-		return mv;
-	}
 
 } // class

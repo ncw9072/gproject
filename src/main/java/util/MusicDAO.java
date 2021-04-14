@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import criteria.Criteria;
 import vo.MusicVO;
 
 // ** Board CRUD 구현
@@ -18,8 +19,8 @@ public class MusicDAO {
 	private static final String NS = "com.ncs.MusicMapper.";
 	
 	// ** genreList
-	public List<MusicVO> genreList(MusicVO vo) {
-		return sqlSession.selectList(NS + "genreList", vo);
+	public List<MusicVO> genreList(Criteria cri) {
+		return sqlSession.selectList(NS + "genreList", cri);
 	} // genreList
 	public int genreRowCount(MusicVO vo) {
 		return sqlSession.selectOne(NS+ "genreRowCount",vo);
@@ -39,8 +40,5 @@ public class MusicDAO {
 		sqlSession.update(NS + "musicCount", vo);
 	}
 
-	public List<MusicVO> selectdailyRank() {
-		return sqlSession.selectList(NS + "selectdailyRank");
-	}
 
 } // class
