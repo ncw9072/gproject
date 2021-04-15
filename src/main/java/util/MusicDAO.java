@@ -17,15 +17,7 @@ public class MusicDAO {
 	private SqlSession sqlSession;
 
 	private static final String NS = "com.ncs.MusicMapper.";
-	
-	// ** genreList
-	public List<MusicVO> genreList(Criteria cri) {
-		return sqlSession.selectList(NS + "genreList", cri);
-	} // genreList
-	public int genreRowCount(MusicVO vo) {
-		return sqlSession.selectOne(NS+ "genreRowCount",vo);
-	}
-	
+
 	// ** selectList
 	public List<MusicVO> selectList() {
 		return sqlSession.selectList(NS + "selectList");
@@ -40,5 +32,13 @@ public class MusicDAO {
 		sqlSession.update(NS + "musicCount", vo);
 	}
 
+	// ** genreList
+	public List<MusicVO> genreList(Criteria cri) {
+		return sqlSession.selectList(NS + "genreList", cri);
+	} // genreList
+
+	public int genreRowCount(MusicVO vo) {
+		return sqlSession.selectOne(NS + "genreRowCount", vo);
+	}
 
 } // class

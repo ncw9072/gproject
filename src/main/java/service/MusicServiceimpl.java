@@ -15,15 +15,12 @@ public class MusicServiceimpl implements MusicService {
 	@Autowired
 	MusicDAO dao;
 
-	@Override
-	public List<MusicVO> genreList(Criteria cri) {
-		return dao.genreList(cri);
-	} // genreList
-	@Override
 	public int genreRowCount(MusicVO vo) {
 		return dao.genreRowCount(vo);
 	}
-	
+	public List<MusicVO> genreList(Criteria cri) {
+		return dao.genreList(cri);
+	} // genreList
 	public List<MusicVO> selectList() {
 		return dao.selectList();
 	} // selectList
@@ -38,6 +35,5 @@ public class MusicServiceimpl implements MusicService {
 
 	}
 
-	
-	
+
 }

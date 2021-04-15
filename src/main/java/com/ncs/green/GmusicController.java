@@ -18,24 +18,32 @@ import org.springframework.web.servlet.ModelAndView;
 import criteria.Criteria;
 import criteria.PageMaker;
 import oracle.sql.ARRAY;
+import service.ChartService;
 import service.MusicService;
-import vo.BoardVO;
+import vo.ChartVO;
 import vo.MusicVO;
-import vo.PageVO;
 
 @Controller
 public class GmusicController {
 
 	@Autowired
 	MusicService service;
+	
+	@Autowired
+	ChartService chartService;
 
 	@RequestMapping(value = "/musicCount")
-	public void musicCount(HttpServletRequest request, ModelAndView mv, MusicVO vo) {
+	public void musicCount(HttpServletRequest request, ModelAndView mv, MusicVO vo ,ChartVO cvo) {
 		
 		vo = service.selectOne(vo); // vo값 불러오기
 		vo.setCount(vo.getCount() + 1); // count + 1
 		service.musicCount(vo);
-
+		
+		// 일간 count + 
+		cvo = chartService.dailytOne(cvo); // vo값 불러오기 
+		cvo.setCount(cvo.getCount() + 1); 
+		chartService.dailyMusicCount(cvo);
+		
 	}
 
 	// musiclist
@@ -92,7 +100,7 @@ public class GmusicController {
 	// ** Image DownLoad
 	@RequestMapping(value = "/dnload")
 	public ModelAndView dnload(ModelAndView mv, @RequestParam("dnfile") String dnfile) {
-		dnfile = "D:/Jeong/gproject/src/main/webapp/" + dnfile;
+		dnfile = "C:/NamCheolWoo/gproject/src/main/webapp/" + dnfile;
 		System.out.println("** dnfile => " + dnfile);
 		File file = new File(dnfile);
 
@@ -118,8 +126,7 @@ public class GmusicController {
 	@RequestMapping(value = "/genrelist")
 	public ModelAndView genrelist(ModelAndView mv, Criteria cri, PageMaker pageMaker , MusicVO vo) {
 		System.out.println("***********Test "+vo.getGenre()); //vo엔 자동으로 장르만 들어와있음.
-		
-		cri.setRowPerPage(5); // 한 페이지당 20곡씩 출력
+		cri.setRowPerPage(10); // 한 페이지당 20곡씩 출력
 		cri.setSnoEno();
 		cri.setGenre(vo.getGenre());
 		
@@ -135,4 +142,5 @@ public class GmusicController {
 		mv.setViewName("musicview/genrelist");
 		return mv;
 	}
+	
 }

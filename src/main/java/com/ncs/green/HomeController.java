@@ -1,5 +1,6 @@
 package com.ncs.green;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import criteria.Criteria;
+import criteria.PageMaker;
+import service.ChartService;
 import service.MusicService;
+import vo.ChartVO;
 import vo.MusicVO;
 
 @Controller
@@ -24,6 +30,9 @@ public class HomeController {
 
 	@Autowired
 	MusicService service;
+
+	@Autowired
+	ChartService chartService;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -121,5 +130,27 @@ public class HomeController {
 		return mv;
 	}
 
+	@RequestMapping(value = "/dailyChart")
+	public ModelAndView dailyChart(ModelAndView mv, HttpServletRequest request, Criteria cri, PageMaker pageMaker , MusicVO vo) {
+		cri.setSnoEno();
+		mv.addObject("Banana", chartService.selectdailyRank(cri)); 
+
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRow(chartService.rowCount(cri));
+		mv.addObject("pageMaker", pageMaker); 
+
+		String part = request.getParameter("part"); // 단순 페이징 스위치용입니다 topmaue에서 값을 넘겨 구분하도록 만든겁니다
+		// daily chart => 값이 daily  week chart => week month chart =
+		
+		if(part != null && part != "") {
+			mv.setViewName("chart/chartPage");
+			//여기는 chart page로 이동하는곳입니다.
+		}else {
+			mv.setViewName("chart/chart");
+			//여기는 home 실행시 ajax로 띄우는 곳입니다.
+		}
+		
+		return mv;
+	}// 일일 차트 컨트롤러입니다.
 
 } // class

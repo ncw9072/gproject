@@ -13,11 +13,7 @@ public class Criteria {
 	
 	private String searchType;
 	private String keyword;
-	
 	private String genre;
-	
-	
-	
 	// 기본값 생성자로 초기화
 	public Criteria() {
 		this.currPage=1;

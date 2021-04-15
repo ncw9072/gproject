@@ -1,13 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>Gmusic</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap" rel="stylesheet">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/topmenu.js"></script>
 <script src="resources/myLib/footer.js"></script>
@@ -16,7 +13,7 @@
 <script src="resources/myLib/myinfochange.js"></script>
 <script src="resources/myLib/chartcount.js"></script>
 <script>
-	var keydownCtrl = 0;
+	/* var keydownCtrl = 0;
 	var kedownShift = 0;
 
 	document.onkeydown = keycheck;
@@ -52,7 +49,7 @@
 			alert('마우스 오른쪽 / 컨트롤 / F12 금지입니다');
 		}
 	}
-	document.onmousedown = click;
+	document.onmousedown = click; */
 </script>
 <script>
    $(function() { //ready
@@ -156,12 +153,16 @@
 
 </script>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
 <style>
 body {
 	margin: 0;
+}
+
+h1{
+	color:#0b3f9a;
+	text-align : center;
+	font-size: 45px;
 }
 
 hr {
@@ -178,7 +179,6 @@ a {
 #header {
 	background-color: silver;
 	height: 40px;
-	width: 100%;
 	margin: 0 auto;
 	width: 75%;
 }
@@ -269,15 +269,17 @@ a {
 /* nav */
 
 /* section */
-#table tr{
-	width:300px;
+#playbutten {
+	background-color: transparent !important;
+	border: none; /* 버튼 보더 없애기 */
+	align-self: auto;
 }
 
+
 #section {
-	height: 500px;
+
 	margin: 0 auto; /* 중앙정렬 */
 	width: 75%;
-	display: grid;
 	grid-template-columns: 2fr 1fr;
 }
 
@@ -333,11 +335,6 @@ a {
 	color: #fff;
 }
 
-#chart {
-	height: 580px;
-	list-style: none;
-	font-weight: normal;
-}
 /* ----------- login 부분--------- */
 
 /* section */
@@ -410,105 +407,130 @@ a {
 
 	<div id="nav">
 		<div id="searchdiv">
-			<a href="home" id="logofont">GMUSIC</a> <input type="text"
-				name="keyword" id="keyword" maxlength="10" size="50"
-				style="vertical-align: middle;">
+			<a href="home" id="logofont">GMUSIC</a>
+			<input type="text" name="keyword" id="keyword" maxlength="10" size="50" style="vertical-align: middle;">
 			<button id="searchBtn" style="vertical-align: middle;">Search</button>
 		</div>
 		<hr>
 		<div id="topmenu"></div>
 		<!-- topmenu -->
 	</div>
-<!--//////////////////// section start //////////////////////////// -->
+	<!--//////////////////// section start //////////////////////////// -->
+	<c:choose>
+		<c:when test="${musicGenre=='dance'}">
+			<h1>댄스</h1>
+		</c:when>
+		<c:when test="${musicGenre=='ballad'}">
+			<h1>발라드</h1>
+		</c:when>
+		<c:when test="${musicGenre=='rap'}">
+			<h1>랩/힙합</h1>
+		</c:when>
+		<c:when test="${musicGenre=='rnb'}">
+			<h1>R&B/Soul</h1>
+		</c:when>
+		<c:when test="${musicGenre=='indie'}">
+			<h1>인디</h1>
+		</c:when>
+		<c:when test="${musicGenre=='rock'}">
+			<h1>록/메탈</h1>
+		</c:when>
+		<c:when test="${musicGenre=='trot'}">
+			<h1>트로트</h1>
+		</c:when>
+		<c:otherwise>
+			<h1>재즈</h1>
+		</c:otherwise>
+	</c:choose>
 	<div id="section">
 		<form name="musiclist">
-		<button type="button" onclick="getCheckboxValue()">플레이리스트</button>
-		<div id='result'></div>
-		<input type="hidden" id="snumVal" name="snumVal" value="">
-		<table style="width: 100%;" border="1" id="table">
-			<tr align="center" height="2" bgcolor="pink">
-				<td width="50">
-					<input type="checkbox" id="check_all" name="check_all">
-				</td>
-				<td width="40">번 호</td>
-				<td>Image</td>
-				<td>곡 명</td>
-				<td>가 수</td>
-				<td>앨범명</td>
-				<td>downloadfile</td>
-			</tr>
-			<c:forEach var="row" items="${Banana}" varStatus="vs">
-				<tr>
-					<td align="center">
-						<input type="checkbox" class="normalCheck" id="snum${row.snum}" name="snum" value="${row.snum}">
+			<button type="button" onclick="getCheckboxValue()">플레이리스트</button>
+			<div id='result'></div>
+			<input type="hidden" id="snumVal" name="snumVal" value="">
+			<table border="1" id="table">
+				<tr align="center" height="2" bgcolor="pink">
+					<td width="50">
+						<input type="checkbox" id="check_all" name="check_all">
 					</td>
-					<td align="center">${vs.count}</td>
-					<td>
-						<img src="${row.image}" width="70" height="70">
-					</td>
-					<td>
-						<button type="button" name="sname" value="${row.snum}">${row.sname}</button>
-					</td>
-					<td>${row.singername}</td>
-					<td>${row.stitle}</td>
-					<td>
-						<a href="dnload?dnfile=${row.downloadfile}">${row.downloadfile}</a>
-					</td>
+					<td width="40">번 호</td>
+					<td>Image</td>
+					<td>곡 명</td>
+					<td>가 수</td>
+					<td>앨범명</td>
+					<td>재 생</td>
+					<td>downloadfile</td>
 				</tr>
-			</c:forEach>
-		</table>
-	</form>
+				<c:forEach var="row" items="${Banana}" varStatus="vs">
+					<tr>
+						<td align="center">
+							<input type="checkbox" class="normalCheck" id="snum${row.snum}" name="snum" value="${row.snum}">
+						</td>
+						<td align="center">${row.rnum}</td>
+						<td>
+							<img src="${row.image}" width="70" height="70">
+						</td>
+						<td>
+							<button type="button" name="sname" value="${row.snum}">${row.sname}</button>
+						</td>
+						<td>${row.singername}</td>
+						<td>${row.stitle}</td>
+						<td><button type="button" id="playbutten" name="sname" value="${row.snum}">
+								<img src="resources/image/play.jpg" width="60" height="60">
+						</button></td>
+						<td>
+							<a href="dnload?dnfile=${row.downloadfile}">${row.downloadfile}</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</form>
+		<!-- 페이징 -->
 	</div>
-	<!-- 페이징 -->
-	<div  align="center">
-	<!-- ver 01 : pageMaker.makeQuery(?) -->
-	<!-- ver 02 : pageMaker.searchQuery(?) -->
-<!-- 1) First << , Prev < : enabeld 여부 -->
-	<c:if test="${pageMaker.prev && pageMaker.sPageNo>1}">
-		<a href="genrelist${pageMaker.makeQuery(1)}&genre=${musicGenre}">&#8666;</a>&nbsp; <!-- First -->
-		<!-- "qna?currPage=1" -->
-		<a href="genrelist${pageMaker.makeQuery(pageMaker.sPageNo-1)}&genre=${musicGenre}">&#8636;</a> <!-- Prev -->
-	</c:if>
+	<div align="center">
+		<!-- ver 01 : pageMaker.makeQuery(?) -->
+		<!-- ver 02 : pageMaker.searchQuery(?) -->
+		<!-- 1) First << , Prev < : enabeld 여부 -->
+		<c:if test="${pageMaker.prev && pageMaker.sPageNo>1}">
+			<a href="genrelist${pageMaker.makeQuery(1)}&genre=${musicGenre}">&#8666;</a>&nbsp; <!-- First -->
+			<!-- "qna?currPage=1" -->
+			<a href="genrelist${pageMaker.makeQuery(pageMaker.sPageNo-1)}&genre=${musicGenre}">&#8636;</a>
+			<!-- Prev -->
+		</c:if>
 
-<!-- 2) sPage~ePage까지 displayPageNo 값 만큼 출력 -->
-	<c:forEach var="i" begin="${pageMaker.sPageNo}" end="${pageMaker.ePageNo}">
-		<c:if test="${i==pageMaker.cri.currPage}">
-			<font style="font-weight: bold;" color="navy">${i}&nbsp;</font>
+		<!-- 2) sPage~ePage까지 displayPageNo 값 만큼 출력 -->
+		<c:forEach var="i" begin="${pageMaker.sPageNo}" end="${pageMaker.ePageNo}">
+			<c:if test="${i==pageMaker.cri.currPage}">
+				<font style="font-weight: bold;" color="navy">${i}&nbsp;</font>
+			</c:if>
+			<c:if test="${i!=pageMaker.cri.currPage}">
+				<a href="genrelist${pageMaker.makeQuery(i)}&genre=${musicGenre}">${i}</a>&nbsp;
 		</c:if>
-		<c:if test="${i!=pageMaker.cri.currPage}">
-			<a href="genrelist${pageMaker.makeQuery(i)}&genre=${musicGenre}">${i}</a>&nbsp;
-		</c:if>
-		
-		<!-- 삼항식과 비교 
+
+			<!-- 삼항식과 비교 
 		<c:out value="${i==pageMaker.cri.currPage ? 'class=active' : ''}"/>
 		-->
-	</c:forEach>
+		</c:forEach>
 
-<!-- 3) Next > , Last >> : enabled 여부 -->
-	<c:if test="${pageMaker.next && pageMaker.ePageNo>0}">
-		<a href="genrelist${pageMaker.makeQuery(pageMaker.ePageNo+1)}&genre=${musicGenre}">&nbsp;&nbsp;&#8640;</a>&nbsp; <!-- Next -->
-		<a href="genrelist${pageMaker.makeQuery(pageMaker.lastPageNo)}&genre=${musicGenre}">&#8667;</a>&nbsp;&nbsp; <!-- Last -->
-		
-	</c:if>
-</div>
-<!--//////////////////// section end //////////////////////////// -->
+		<!-- 3) Next > , Last >> : enabled 여부 -->
+		<c:if test="${pageMaker.next && pageMaker.ePageNo>0}">
+			<a href="genrelist${pageMaker.makeQuery(pageMaker.ePageNo+1)}&genre=${musicGenre}">&nbsp;&nbsp;&#8640;</a>&nbsp; <!-- Next -->
+			<a href="genrelist${pageMaker.makeQuery(pageMaker.lastPageNo)}&genre=${musicGenre}">&#8667;</a>&nbsp;&nbsp; <!-- Last -->
+
+		</c:if>
+	</div>
+	<!--//////////////////// section end //////////////////////////// -->
 	<div id="footer">
 		<div id="footerinfo">
-			<a href="javascript:;" class="footergroup" id="introcompany">회사
-				소개</a>&nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp; <a
-				href="javascript:;" class="footergroup" id="termsp">이용약관</a>&nbsp;&nbsp;
-			<font class="footerbar">|</font> &nbsp;&nbsp; <a href="javascript:;"
-				class="footergroup" id="privacy">개인정보처리방침</a>&nbsp;&nbsp; <font
-				class="footerbar">|</font> &nbsp;&nbsp; <a href="javascript:;"
-				class="footergroup" id="youth">청소년보호정책</a>
+			<a href="javascript:;" class="footergroup" id="introcompany">회사 소개</a>
+			&nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp;
+			<a href="javascript:;" class="footergroup" id="termsp">이용약관</a>
+			&nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp;
+			<a href="javascript:;" class="footergroup" id="privacy">개인정보처리방침</a>
+			&nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp;
+			<a href="javascript:;" class="footergroup" id="youth">청소년보호정책</a>
 		</div>
 		<div id="footerlist">
-			<font>G-MUSIC</font> &nbsp;&nbsp; <font class="footerbar">|</font>
-			&nbsp;&nbsp; 그린 컴퓨터 아카데미 &nbsp;&nbsp; <font class="footerbar">|</font>
-			&nbsp;&nbsp; 공동작업 : 김지수, 남철우, 정재필, 정현근 &nbsp;&nbsp; <font
-				class="footerbar">|</font> &nbsp;&nbsp; 사업자등록번호 : ???-??-????? <br>
-			문의전화 : 0000-0000 (평일 09:00 ~ 05:00) &nbsp;&nbsp; <font
-				class="footerbar">|</font> &nbsp;&nbsp; 이메일 : gproject @ naver.com
+			<font>G-MUSIC</font> &nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp; 그린 컴퓨터 아카데미 &nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp; 공동작업 : 김지수, 남철우, 정재필, 정현근 &nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp; 사업자등록번호 : ???-??-????? <br> 문의전화 : 0000-0000 (평일 09:00 ~ 05:00) &nbsp;&nbsp; <font class="footerbar">|</font> &nbsp;&nbsp; 이메일 : gproject @ naver.com
 		</div>
 	</div>
 </body>
