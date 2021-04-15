@@ -15,6 +15,7 @@
 <script src="resources/myLib/mypage.js"></script>
 <script src="resources/myLib/myinfochange.js"></script>
 <script src="resources/myLib/chartcount.js"></script>
+<script src="resources/myLib/userPickGenre.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap"
@@ -278,7 +279,7 @@ a {
 <!--//////////////////// section start //////////////////////////// -->
 	<div id="section">
 		<div id="sec1">
-			<div>
+			<div id="sec1_1">
 				아
 				<%-- <table width=800 border="1">
 					<tr align="center" height="30" bgcolor="pink">

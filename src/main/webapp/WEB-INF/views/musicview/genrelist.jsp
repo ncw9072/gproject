@@ -458,8 +458,8 @@ a {
 			</c:forEach>
 		</table>
 	</form>
-	<!-- 페이징 -->
 	</div>
+	<!-- 페이징 -->
 	<div  align="center">
 	<!-- ver 01 : pageMaker.makeQuery(?) -->
 	<!-- ver 02 : pageMaker.searchQuery(?) -->
