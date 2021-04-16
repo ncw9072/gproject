@@ -14,7 +14,15 @@ public class MusicServiceimpl implements MusicService {
 
 	@Autowired
 	MusicDAO dao;
-
+	@Override
+	public List<MusicVO> releasedateList(Criteria cri) {
+		return dao.releasedateList(cri);
+	}
+	@Override
+	public int releasedateRowCount() {
+		return dao.releasedateRowCount();
+	}
+	
 	public int genreRowCount(MusicVO vo) {
 		return dao.genreRowCount(vo);
 	}

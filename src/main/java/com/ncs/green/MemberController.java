@@ -3,7 +3,6 @@ package com.ncs.green;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -85,7 +82,7 @@ public class MemberController {
 
 		// 실습2) ver02 (배포환경 or 개발환경)
 		if (realPath.contains(".eclipse.")) {
-			realPath = "C:/NamCheolWoo/gproject/src/main/webapp/resources/uploadImage/";
+			realPath = "c:/NamCheolWoo/MyWork/gproject/src/main/webapp/resources/uploadImage/";
 		} else {
 			realPath += "resources/uploadImage/";
 		}
@@ -246,6 +243,8 @@ public class MemberController {
 					request.getSession().setAttribute("loginID", vo.getId());
 					request.getSession().setAttribute("loginGRADE", vo.getGrade());
 					request.getSession().setAttribute("loginPW", password);
+					request.getSession().setAttribute("userPickGenre1", vo.getGenre1()); //섹션 1_1부분을 위해 추가
+					request.getSession().setAttribute("userPickGenre2", vo.getGenre2()); //추가
 //					mv.addObject("message", "로그인 성공!");
 					rttr.addFlashAttribute("message", "로그인 성공!");
 					mv.setViewName("redirect:home");
@@ -308,7 +307,7 @@ public class MemberController {
 		// ** 경로
 		String realPath = request.getRealPath("/");
 		if (realPath.contains(".eclipse.")) {
-			realPath = "C:/NamCheolWoo/gproject/src/main/webapp/resources/uploadImage/";
+			realPath = "c:/NamCheolWoo/MyWork/gproject/src/main/webapp/resources/uploadImage/";
 		} else {
 			realPath += "resources/uploadImage/";
 		}

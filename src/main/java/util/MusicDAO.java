@@ -40,5 +40,13 @@ public class MusicDAO {
 	public int genreRowCount(MusicVO vo) {
 		return sqlSession.selectOne(NS + "genreRowCount", vo);
 	}
+	// ** genreList
+	public List<MusicVO> releasedateList(Criteria cri) {
+		return sqlSession.selectList(NS + "releasedateList", cri);
+	} // genreList
+	
+	public int releasedateRowCount() {
+		return sqlSession.selectOne(NS + "releasedateRowCount");
+	}
 
 } // class

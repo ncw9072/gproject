@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.mail.Session;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -124,9 +125,14 @@ public class GmusicController {
 	} // dnload
 
 	@RequestMapping(value = "/genrelist")
-	public ModelAndView genrelist(ModelAndView mv, Criteria cri, PageMaker pageMaker , MusicVO vo) {
+	public ModelAndView genrelist(HttpServletRequest request, ModelAndView mv, Criteria cri, PageMaker pageMaker , MusicVO vo) {
 		System.out.println("***********Test "+vo.getGenre()); //vo엔 자동으로 장르만 들어와있음.
-		cri.setRowPerPage(10); // 한 페이지당 20곡씩 출력
+		
+		if("section1_1".equals(request.getParameter("pagingCode"))) {
+			cri.setRowPerPage(4);
+		}else {
+			cri.setRowPerPage(10); // 한 페이지당 20곡씩 출력
+		}
 		cri.setSnoEno();
 		cri.setGenre(vo.getGenre());
 		
@@ -139,8 +145,27 @@ public class GmusicController {
 		
 		mv.addObject("pageMaker", pageMaker);
 		mv.addObject("musicGenre", vo.getGenre());
-		mv.setViewName("musicview/genrelist");
+		if("section1_1".equals(request.getParameter("pagingCode"))) {
+			mv.setViewName("musicview/userPickGenrePage");
+		}else {
+			mv.setViewName("musicview/genrelist");
+		}
 		return mv;
-	}
-	
+	}//genrelist
+	// releasedateList
+	@RequestMapping(value = "/releasedateList")
+	public ModelAndView releasedateList(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
+		cri.setRowPerPage(4);
+		cri.setSnoEno();
+		List<MusicVO> list = service.releasedateList(cri);
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}
+		pageMaker.setCri(cri);	// 계산된 cri를 페이지 메이커의 필드변수에 담아줌
+		pageMaker.setTotalRow(service.releasedateRowCount()); //  장르 곡목록의 수
+		
+		mv.addObject("pageMaker", pageMaker);
+		mv.setViewName("musicview/releasedateMusicList");
+		return mv;
+	}//releasedateList
 }

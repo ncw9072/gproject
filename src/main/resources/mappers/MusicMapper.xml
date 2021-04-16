@@ -28,6 +28,17 @@
 	select count(*) from music where genre = #{genre}
 </select>
 
+<!-- ********section1_2번. 4개 최신곡 이미지 표현하는 섹션 -->
+<select id="releasedateList" resultType="vo.MusicVO">
+	 select snum, sname, stitle, singername, releasedate, genre, replace(lyrics,'-','') lyrics, 
+	 country, musicurl, downloadfile, image, count, rnum 
+	 from (select m.*, ROW_NUMBER() OVER(order by releasedate desc , sname) rnum 
+	 from music m ) where rnum between #{sno} and #{eno}
+</select>
+<select id="releasedateRowCount" resultType="int">
+	select count(*) from music
+</select>
+<!-- section1_2번. 4개 최신곡 이미지 표현하는 섹션************** -->
 
 <update id="musicCount"> <!-- count를 위한 sql -->
 

@@ -15,6 +15,8 @@
 <script src="resources/myLib/mypage.js"></script>
 <script src="resources/myLib/myinfochange.js"></script>
 <script src="resources/myLib/chartcount.js"></script>
+<script src="resources/myLib/userPickGenre.js"></script><!-- 추가 -->
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap"
@@ -277,29 +279,9 @@ a {
 	</div>
 	<div id="section">
 		<div id="sec1">
-			<div>
-				아
-				<%-- <table width=800 border="1">
-					<tr align="center" height="30" bgcolor="pink">
-						<td>sname</td>
-						<td>stitle</td>
-						<td>downloadfile</td>
-						<td>Image</td>
-					</tr>
-					<c:forEach var="row" items="${Banana}">
-						<tr>
-							<td><a href="mdetail?id=${row.id}">${row.id}</a></td>
-							<td>${row.sname}</td>
-							<td>${row.stitle}</td>
-							<td>${row.downloadfile}</td>
-							<td><img src="${row.image}" width="70" height="70">
-							</td>
-						</tr>
-					</c:forEach>
-				</table> --%>
-			</div>
-			<div>아</div>
-			<div>아</div>
+			<div id="sec1_1"></div>
+			<div id="sec1_2"></div>
+			<div id="sec1_3"></div>
 		</div>
 
 		<div id="sec2">
@@ -310,7 +292,7 @@ a {
 					</c:if>
 					<!-- ----------------------------------로그인 후 페이지-------------------------- div로 해볼까 생각중;;-->
 					<c:if test="${loginID!=null}">
-						<div id="loginsuccess">
+						<div id="loginsuccess" value1="${userPickGenre1}" value2="${userPickGenre2}"> <!-- 로그인한 유저의 선호장르 -->
 							<div id="welcome" style="font-size: 23px">
 								<img src="resources/uploadImage/basicman1.jpg" width="40"
 									height="40">${loginID}님 환영합니다!!<br>
