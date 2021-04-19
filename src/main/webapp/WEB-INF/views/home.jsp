@@ -16,7 +16,8 @@
 <script src="resources/myLib/myinfochange.js"></script>
 <script src="resources/myLib/chartcount.js"></script>
 <script src="resources/myLib/userPickGenre.js"></script><!-- 추가 -->
-
+<link rel="stylesheet" type="text/css" 
+		  href="resources/myLib/imageHoverBoxCss.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap"

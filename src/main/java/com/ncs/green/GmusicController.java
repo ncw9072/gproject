@@ -154,18 +154,31 @@ public class GmusicController {
 	}//genrelist
 	// releasedateList
 	@RequestMapping(value = "/releasedateList")
-	public ModelAndView releasedateList(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
-		cri.setRowPerPage(4);
+	public ModelAndView releasedateList(HttpServletRequest request, ModelAndView mv, Criteria cri, PageMaker pageMaker) {
+		if("section1_2".equals(request.getParameter("pagingCode"))) {
+			cri.setRowPerPage(4);
+		}else {
+			
+		}
 		cri.setSnoEno();
+		
 		List<MusicVO> list = service.releasedateList(cri);
 		if (list != null) {
 			mv.addObject("Banana", list);
 		}
 		pageMaker.setCri(cri);	// 계산된 cri를 페이지 메이커의 필드변수에 담아줌
-		pageMaker.setTotalRow(service.releasedateRowCount()); //  장르 곡목록의 수
+		if("section1_2".equals(request.getParameter("pagingCode"))) {
+			pageMaker.setTotalRow(service.releasedateRowCount()); //  장르 곡목록의 수
+		}else {
+			
+		}
 		
 		mv.addObject("pageMaker", pageMaker);
-		mv.setViewName("musicview/releasedateMusicList");
+		if("section1_2".equals(request.getParameter("pagingCode"))) {
+			mv.setViewName("musicview/releasedateMusicList");
+		}else {
+			
+		}
 		return mv;
 	}//releasedateList
 }

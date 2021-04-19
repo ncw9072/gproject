@@ -244,7 +244,8 @@ public class MemberController {
 					request.getSession().setAttribute("loginGRADE", vo.getGrade());
 					request.getSession().setAttribute("loginPW", password);
 					request.getSession().setAttribute("userPickGenre1", vo.getGenre1()); //섹션 1_1부분을 위해 추가
-					request.getSession().setAttribute("userPickGenre2", vo.getGenre2()); //추가
+//					request.getSession().setAttribute("userPickGenre2", vo.getGenre2()); //추가
+					
 //					mv.addObject("message", "로그인 성공!");
 					rttr.addFlashAttribute("message", "로그인 성공!");
 					mv.setViewName("redirect:home");
