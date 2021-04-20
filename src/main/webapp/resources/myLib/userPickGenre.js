@@ -43,7 +43,7 @@ $(function(){
 	}
 	$.ajax({ // nav topmenu
 			type:'Get',
-			url:'releasedateList?pagingCode=section1_2',
+			url:'musiclist?pagingCode=section1_2',
 			success:function(resultPage){
 				$('#sec1_2').html('');
 				$('#sec1_2').html(resultPage);

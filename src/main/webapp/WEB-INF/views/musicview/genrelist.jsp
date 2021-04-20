@@ -5,6 +5,8 @@
 <title>Gmusic</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/topmenu.js"></script>
 <script src="resources/myLib/footer.js"></script>
@@ -52,116 +54,130 @@
 	document.onmousedown = click; */
 </script>
 <script>
-   $(function() { //ready
+	$(function() { //ready
+		
+		// input checkbox
+		// https://emessell.tistory.com/149 참고
+		//1. 전체 선택, 전체 해제
+		$("#check_all").click(function() {
 
-      // input checkbox
-      // https://emessell.tistory.com/149 참고
-      //1. 전체 선택, 전체 해제
-      $("#check_all").click(function() {
+			var checked = $(this).is(":checked");
 
-         var checked = $(this).is(":checked");
+			if (checked) {
+				$(".normalCheck").prop('checked', true);
+			} else {
+				$(".normalCheck").prop('checked', false);
+			}
+		});
 
-         if (checked) {
-            $(".normalCheck").prop('checked', true);
-         } else {
-            $(".normalCheck").prop('checked', false);
-         }
-      });
+		// 2. 전체선택 후 하나만 해제했을 때, 전체선택도 해체
+		// 3. 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
+		$(".normalCheck").click(function() {
 
-      // 2. 전체선택 후 하나만 해제했을 때, 전체선택도 해체
-      // 3. 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
-      $(".normalCheck").click(function() {
+			var checked = $(this).is(":checked");
 
-         var checked = $(this).is(":checked");
+			if (!checked) {
+				$("#check_all").prop('checked', false);
+			} else {
+				var is_checked = true;
 
-         if (!checked) {
-            $("#check_all").prop('checked', false);
-         } else {
-            var is_checked = true;
+				$(".normalCheck").each(function() {
+					is_checked = is_checked && $(this).is(":checked");
+				});
 
-            $(".normalCheck").each(function() {
-               is_checked = is_checked && $(this).is(":checked");
-            });
+				$("#check_all").prop("checked", is_checked);
 
-            $("#check_all").prop("checked", is_checked);
-
-         }
-      });
+			}
+		});
       
-      
-      // 곡명 버튼 눌렀을때 실행 
-      // 플레이 리스트에 단일로 실행됨
-      $("button[name=sname]").click(function() {
+		// 가사 버튼 눌렀을때 실행 
+		$("button[name=lyrics]").click(function() {
 
-         var buttonSnumVal = $(this).val();
+			var buttonSnumVal = $(this).val();
 
-         url = "playlist";
-         window.open(url, "myview",
-                     "toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=700,height=800");
+			url = "lyricsview?snum="+buttonSnumVal;
+			window.open(url, "lyricsView","toolbar=no,location=no,status=no,scrollbars=no,resizable=no,width=420,height=520");
        
-         document.musiclist.action =url;
-         document.musiclist.method="post";
-         document.musiclist.target="myview";
+		});
+		
+		// 곡명 버튼 눌렀을때 실행 
+		// 플레이 리스트에 단일로 실행됨
+		$("button[name=sname]").click(function() {
+
+			var buttonSnumVal = $(this).val();
+
+			url = "playlist";
+			window.open(url, "playlistView","toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=340,height=720");
+       
+			document.musiclistForm.action =url;
+			document.musiclistForm.method="post";
+			document.musiclistForm.target="playlistView";
          
-         $('input[name=snumVal]').attr('value',buttonSnumVal);
+			$('input[name=snumVal]').attr('value',buttonSnumVal);
       
-         document.musiclist.submit();
-      });
+			document.musiclistForm.submit();
+		});
+		
+		// 뮤직비디오 버튼 눌렀을때 실행 
+		$("button[name=musicurl]").click(function() {
+
+			var musicurlVal = $(this).val();
+
+			url = musicurlVal+"?amp;autoplay=1";
+			window.open(url, "videoView","toolbar=no,location=no,status=no,scrollbars=no,resizable=no,width=600,height=400");
+		});
       
-   });//ready *
+	});//ready *
    
 
    
-   // window.open post 방식으로 전달하기
-   // https://darkhorizon.tistory.com/284 참고
-   // 체크박스(checkbox)에 선택 된 값 출력하기
-   // https://hianna.tistory.com/430 참고
-   function getCheckboxValue()  {
-      // 선택된 목록 가져오기
-      const query = 'input[name="snum"]:checked';
-      const selectedEls = document.querySelectorAll(query);
-   
-      // 선택된 목록에서 value 찾기
-      let result = '';
-      selectedEls.forEach((el) => {
-      result += el.value + ',';
-      });
-      
-      // div에 출력 하기
-      document.getElementById('result').innerText
-      = result;
-      
-      url = "playlist";
-      window.open(url, "myview",
-                  "toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=700,height=800");
-    
-      document.musiclist.action =url;
-      document.musiclist.method="post";
-      document.musiclist.target="myview";
-      
-      // 항목 추가 실험중 넣으면 항목 추가됨
-      //var addsnumVal = $('input[name=snumVal]').val();
-      //if (addsnumVal != null) {
-      //   $('input[name=snumVal]').attr('value',addsnumVal+result);
-      //}else{
-         $('input[name=snumVal]').attr('value',result);
-      //}
-   
-      document.musiclist.submit();
-   
-   }
+	// window.open post 방식으로 전달하기
+	// https://darkhorizon.tistory.com/284 참고
+	// 체크박스(checkbox)에 선택 된 값 출력하기
+	// https://hianna.tistory.com/430 참고
+	function getCheckboxValue() {
+		// 선택된 목록 가져오기
+		const query = 'input[name="snum"]:checked';
+		const selectedEls = document.querySelectorAll(query);
+	  
+		// 선택된 목록에서 value 찾기
+		let result = '';
+		selectedEls.forEach((el) => {
+			result += el.value + ',';
+		});
+	     
+		// div에 출력 하기
+		document.getElementById('result').innerText
+		= result;
+	     
+		url = "playlist";
+		window.open(url, "playlistView","toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=340,height=720");
+	   
+		document.musiclistForm.action =url;
+		document.musiclistForm.method="post";
+		document.musiclistForm.target="playlistView";
+	     
+		// 항목 추가 실험중 넣으면 항목 추가됨
+		//var addsnumVal = $('input[name=snumVal]').val();
+		//if (addsnumVal != null) {
+		//   $('input[name=snumVal]').attr('value',addsnumVal+result);
+		//}else{
+			$('input[name=snumVal]').attr('value',result);
+		//}
+	  
+		document.musiclistForm.submit();
+	  
+	} //getCheckboxValue
 
 </script>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
 <style>
 body {
 	margin: 0;
 }
 
-h1{
-	color:#0b3f9a;
-	text-align : center;
+h1 {
+	color: #0b3f9a;
+	text-align: center;
 	font-size: 45px;
 }
 
@@ -269,15 +285,7 @@ a {
 /* nav */
 
 /* section */
-#playbutten {
-	background-color: transparent !important;
-	border: none; /* 버튼 보더 없애기 */
-	align-self: auto;
-}
-
-
 #section {
-
 	margin: 0 auto; /* 중앙정렬 */
 	width: 75%;
 	grid-template-columns: 2fr 1fr;
@@ -291,6 +299,72 @@ a {
 	border-bottom: solid green;
 	height: 295px;
 }
+
+#table {
+	width: 100%;
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	border-spacing: 0px;
+}
+
+#table td {
+	border-bottom: 1px solid;
+	border-collapse: collapse;
+	border-color: #EEEEEF;
+	padding: 5px;
+}
+
+.category {
+	font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+	font-size: 14px;
+}
+
+.rnum {
+	font-size: 18px;
+}
+
+.albumimage {
+	width: 70px;
+	height: 70px;
+	padding: 6px;
+	vertical-align: middle;
+}
+
+.playbutten, .icon {
+	background-color: transparent !important; /* 배경 없애기 */
+	border: none; /* 버튼 보더 없애기 */
+	padding: 0;
+	align-self: auto;
+	white-space: nowrap; /* 한라인 쓰기 */
+	font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+	font-size: 14px;
+	font-weight: 600;
+	color: #333333;
+}
+
+.playbutten:hover, .icon:hover {
+	text-decoration: underline; /* hover시 밑줄 */
+	cursor: pointer; /* hover시 마우스 손가락 모양 */
+}
+
+.playbutten:focus, .icon:focus {
+	outline: none; /* 클릭후 포커스 없애기 */
+}
+
+.singername {
+	font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+	font-size: 12px;
+	color: #8b8b8b;
+}
+
+.stitle {
+	font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+	font-size: 14px;
+	color: #8b8b8b;
+}
+
+/* section */
+
 /* 로그인 파트부분 */
 #login {
 	border-bottom: solid green;
@@ -336,8 +410,6 @@ a {
 }
 
 /* ----------- login 부분--------- */
-
-/* section */
 
 /*footer---------------------------- */
 #footer {
@@ -443,42 +515,65 @@ a {
 		</c:otherwise>
 	</c:choose>
 	<div id="section">
-		<form name="musiclist">
+		<form name="musiclistForm">
 			<button type="button" onclick="getCheckboxValue()">플레이리스트</button>
 			<div id='result'></div>
 			<input type="hidden" id="snumVal" name="snumVal" value="">
-			<table border="1" id="table">
-				<tr align="center" height="2" bgcolor="pink">
+			<table id="table">
+				<tr class="category" align="center" height="2" bgcolor="ghostwhite">
 					<td width="50">
 						<input type="checkbox" id="check_all" name="check_all">
 					</td>
 					<td width="40">번 호</td>
-					<td>Image</td>
-					<td>곡 명</td>
-					<td>가 수</td>
-					<td>앨범명</td>
-					<td>재 생</td>
-					<td>downloadfile</td>
+					<td colspan="3">곡정보</td>
+					<td align="left">앨 범</td>
+					<td width="40">듣 기</td>
+					<td width="40">다 운</td>
+					<td width="40">뮤 비</td>
+					<td width="40">수 정</td>
+					<td width="40">삭 제</td>
 				</tr>
 				<c:forEach var="row" items="${Banana}" varStatus="vs">
 					<tr>
 						<td align="center">
-							<input type="checkbox" class="normalCheck" id="snum${row.snum}" name="snum" value="${row.snum}">
+							<input type="checkbox" class="normalCheck" name="snum" value="${row.snum}">
 						</td>
-						<td align="center">${row.rnum}</td>
+						<td class="rnum" align="center">${row.rnum}</td>
 						<td>
-							<img src="${row.image}" width="70" height="70">
+							<img class="albumimage" src="${row.image}">
+						</td>
+						<td width="40">
+							<button type="button" class="icon" name="lyrics" value="${row.snum}">
+								<img src="resources/image/lyrics_icon.png" width="30" height="30">
+							</button>
 						</td>
 						<td>
-							<button type="button" name="sname" value="${row.snum}">${row.sname}</button>
+							<div>
+								<button type="button" class="playbutten" name="sname" value="${row.snum}">${row.sname}</button>
+							</div>
+							<div class="singername">${row.singername}</div>
 						</td>
-						<td>${row.singername}</td>
-						<td>${row.stitle}</td>
-						<td><button type="button" id="playbutten" name="sname" value="${row.snum}">
-								<img src="resources/image/play.jpg" width="60" height="60">
-						</button></td>
-						<td>
-							<a href="dnload?dnfile=${row.downloadfile}">${row.downloadfile}</a>
+						<td class="stitle">${row.stitle}</td>
+						<td align="center">
+							<button type="button" class="playbutten" name="sname" value="${row.snum}">
+								<img src="resources/image/play_icon.png" width="30" height="30">
+							</button>
+						</td>
+						<td align="center">
+							<a href="dnload?dnfile=${row.downloadfile}">
+								<img src="resources/image/download_icon.png" width="30" height="30">
+							</a>
+						</td>
+						<td align="center">
+							<button type="button" class="icon" name="musicurl" value="${row.musicurl}">
+								<img src="resources/image/videos_icon.png" width="30" height="30">
+							</button>
+						</td>
+						<td align="center">
+							<span>수정</span>
+						</td>
+						<td align="center">
+							<span>삭제</span>
 						</td>
 					</tr>
 				</c:forEach>
