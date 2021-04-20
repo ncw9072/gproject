@@ -353,6 +353,7 @@ public class MemberController {
 		if (service.update(vo) > 0) {
 			rttr.addFlashAttribute("message", "업데이트 성공");
 			mv.setViewName("member/mypage");
+			request.getSession().setAttribute("userPickGenre1", vo.getGenre1()); //섹션 1_1부분을 위해 추가
 		} else {
 			rttr.addFlashAttribute("message", "업데이트 실패");
 			mv.setViewName("member/myinfochangp");
