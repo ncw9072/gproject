@@ -191,123 +191,52 @@ public class GmusicController {
 	/*--------------------------------------------------검색--------------------------------------------*/
 	@RequestMapping(value = "/mSearch") // 통합검색
 	public ModelAndView mSearch(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
-		System.out.println("들어오는 서치타입은? ********* >>>"+cri.getSearchType());
-		System.out.println("들어오는 키워드은? ********* >>>"+cri.getSearchType());
-		/*
-		 * System.out.println(cri.getKeyword()); System.out.println("첫번쨰");
-		 */
-		cri.setRowPerPage(10);
+		System.out.println("들어오는 서치타입은? ********* >>>" + cri.getSearchType());
+		System.out.println("들어오는 키워드은? ********* >>>" + cri.getKeyword());
 		cri.setSnoEno();
-		
-		mv.addObject("UserKeyword", cri.getKeyword());
-		cri.setKeyword(cri.getKeyword().toUpperCase().replace(" ", ""));
-		
-		List<MusicVO> list = service.searchSnameList(cri);
-		List<MusicVO> banana = new ArrayList<>(); 
-		List<MusicVO> carot = new ArrayList<>();
-		List<MusicVO> durian = new ArrayList<>();
-		int bananaCount=0;
-		int carotCount=0;
-		int durianCount=0;
-		if(cri.getKeyword()!=null) {
-			for (MusicVO row : list) {
-				if(row.getSname().toUpperCase().replace(" ","").indexOf(cri.getKeyword())  >= 0) {
-					System.out.println("제목 테스트 인덱스 >"+row.getSname()+", "+ row.getSname().toUpperCase().replace(" ","").indexOf(cri.getKeyword()));
-					bananaCount++;
-					banana.add(row);
-				}if(row.getSingername().toUpperCase().replace(" ","").indexOf(cri.getKeyword())  >= 0) {
-					System.out.println("가수 테스트 인덱스 >"+row.getSname()+", "+row.getSingername().toUpperCase().replace(" ","").indexOf(cri.getKeyword()));
-					carotCount++;
-					carot.add(row);
-				} if(row.getLyrics().toUpperCase().replace(" ","").indexOf(cri.getKeyword())  >= 0) {
-					System.out.println("가사 테스트 인덱스 >"+row.getSname()+", "+row.getLyrics().toUpperCase().replace(" ","").indexOf(cri.getKeyword()));
-					durianCount++;
-					durian.add(row);
-				}
-			}
+
+		mv.addObject("searchType", cri.getSearchType());
+		mv.addObject("UserKeyword", cri.getKeyword().replace("\"", "&quot;"));
+		cri.setKeyword(cri.getKeyword().replace(" ", ""));
+
+		if ("all".equals(cri.getSearchType())) {
+
+			cri.setSearchType("sname");
+			List<MusicVO> list1 = service.searchSnameList(cri);
+			mv.addObject("Aanana", list1);
+			mv.addObject("Aanana2", service.searchRowCountSname(cri));
+
+			cri.setSearchType("singername");
+			List<MusicVO> list2 = service.searchSnameList(cri);
+			mv.addObject("Banana", list2);
+			mv.addObject("Banana2", service.searchRowCountSname(cri));
+
+			cri.setSearchType("lyrics");
+			List<MusicVO> list3 = service.searchSnameList(cri);
+			mv.addObject("Canana", list3);
+			mv.addObject("Canana2", service.searchRowCountSname(cri));
+			cri.setSearchType("all");
+		}else {
+			mv.addObject("Apple", service.searchSnameList(cri));
+			mv.addObject("Apple2", service.searchRowCountSname(cri));
 		}
-		mv.addObject("Banana", banana);
-		mv.addObject("Carot", carot);
-		mv.addObject("Durian", durian);
+		
+
 
 		pageMaker.setCri(cri);
+		pageMaker.setTotalRow(service.searchRowCountSname(cri));
 
-		mv.addObject("BananaCount", bananaCount);
-		mv.addObject("CarotCount", carotCount);
-		mv.addObject("DurianCount", durianCount);
-		
-		if(service.searchSnameList(cri)==null) {
-			System.out.println("true");
-		}else {
-			System.out.println("false");
-		}
 		mv.addObject("pageMaker", pageMaker);
-        if("sname".equals(cri.getSearchType())) {
-        	mv.setViewName("musicview/SearchSname");
-        }else if("singername".equals(cri.getSearchType())) {
-        	mv.setViewName("musicview/SearchSingerName");
-        }else if("lyrics".equals(cri.getSearchType())) {
-        	mv.setViewName("musicview/SearchLyrics");
-        }else {
-        	mv.setViewName("musicview/musicSearch");
-        }
-        
+
+		if ("all".equals(cri.getSearchType())) {
+			mv.setViewName("musicview/musicSearch");
+		} else {
+			mv.setViewName("musicview/searchDetail");
+		}
+
 		return mv;
 	} // mSearch
 
-//	@RequestMapping(value = "/searchSname") // 곡 검색
-//	public ModelAndView searchSname(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
-//
-//		cri.setSnoEno();
-//		
-//		mv.addObject("UserKeyword", cri.getKeyword());
-//		cri.setKeyword(cri.getKeyword().replace(" ", ""));
-//		mv.addObject("Banana", service.searchSnameList(cri));
-//
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalRow(service.searchRowCountSname(cri));
-//
-//		mv.addObject("pageMaker", pageMaker);
-//		mv.setViewName("musicview/SearchSname");
-//
-//		return mv;
-//	} // searchSname
-//
-//	@RequestMapping(value = "/searchSingerName") // 가수 검색
-//	public ModelAndView searchSingerName(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
-//
-//		cri.setSnoEno();
-//
-//		mv.addObject("UserKeyword", cri.getKeyword());
-//		cri.setKeyword(cri.getKeyword().replace(" ", ""));
-//		mv.addObject("Carot", service.searchSingerNameList(cri));
-//
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalRow(service.searchRowCountSingerName(cri));
-//		mv.addObject("pageMaker", pageMaker);
-//
-//		mv.setViewName("musicview/SearchSingerName");
-//
-//		return mv;
-//	} // searchSingerName
-//
-//	@RequestMapping(value = "/searchLyrics") // 가사 검색
-//	public ModelAndView searchLyrics(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
-//
-//		cri.setSnoEno();
-//		
-//		mv.addObject("UserKeyword", cri.getKeyword());
-//		cri.setKeyword(cri.getKeyword().replace(" ", ""));
-//		mv.addObject("Durian", service.searchLyricsList(cri));
-//
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalRow(service.searchRowCountLyrics(cri));
-//		mv.addObject("pageMaker", pageMaker);
-//
-//		mv.setViewName("musicview/SearchLyrics");
-//
-//		return mv;
-//	} // searchLyrics
 	/*------------------------------------------------------------------------------------------*/
 
 }

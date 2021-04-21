@@ -27,7 +27,7 @@ public interface MusicService {
 
 	// 검색 페이징 부분 추가
 	// ** SearchCriteria PageList
-//	public int searchRowCountSname(Criteria cri);
+	public int searchRowCountSname(Criteria cri);
 
 
 

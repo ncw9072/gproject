@@ -54,9 +54,9 @@ public class MusicServiceimpl implements MusicService {
 	/*-------------------검색부분--------------------*/
 	// ** SearchCriteria PageList
 
-//	public int searchRowCountSname(Criteria cri) {
-//		return dao.searchRowCountSname(cri);
-//	}
+	public int searchRowCountSname(Criteria cri) {
+		return dao.searchRowCountSname(cri);
+	}
 
 
 

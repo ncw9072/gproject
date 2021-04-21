@@ -59,10 +59,10 @@ public class MusicDAO {
 	}
 
 	/*-------------검색부분 추가--------------*/
-//	// SearchCriteria PageList
-//	public int searchRowCountSname(Criteria cri) {
-//		return sqlSession.selectOne(NS + "searchRowCountSname", cri);
-//	}
+	// SearchCriteria PageList
+	public int searchRowCountSname(Criteria cri) {
+		return sqlSession.selectOne(NS + "searchRowCountSname", cri);
+	}
 
 
 	public List<MusicVO> searchSnameList(Criteria cri) {

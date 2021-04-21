@@ -210,7 +210,7 @@ body {
 				$("#playlist option:selected").attr('value4'));
 
 		if ($('.hiddenLyrics').val() != "") {
-			$("#lyrics").html($('.hiddenLyrics').val());
+			$("#lyrics").html($("#playlist option:selected").attr("value5"));
 		} else {
 			$("#lyrics").html("가사가 없습니다");
 		}
@@ -441,6 +441,7 @@ body {
 						</c:forEach>
 						</div> --%>
 						<textarea id="lyrics" readonly="readonly" style="display: none;"></textarea>
+				
 					</td>
 				</tr>
 			</table>
