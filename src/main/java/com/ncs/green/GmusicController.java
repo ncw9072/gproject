@@ -215,16 +215,14 @@ public class GmusicController {
 					System.out.println("제목 테스트 인덱스 >"+row.getSname()+", "+ row.getSname().toUpperCase().replace(" ","").indexOf(cri.getKeyword()));
 					bananaCount++;
 					banana.add(row);
-				}else if(row.getSingername().toUpperCase().replace(" ","").indexOf(cri.getKeyword())  >= 0) {
+				}if(row.getSingername().toUpperCase().replace(" ","").indexOf(cri.getKeyword())  >= 0) {
 					System.out.println("가수 테스트 인덱스 >"+row.getSname()+", "+row.getSingername().toUpperCase().replace(" ","").indexOf(cri.getKeyword()));
 					carotCount++;
 					carot.add(row);
-				}else if(row.getLyrics().toUpperCase().replace(" ","").indexOf(cri.getKeyword())  >= 0) {
+				} if(row.getLyrics().toUpperCase().replace(" ","").indexOf(cri.getKeyword())  >= 0) {
 					System.out.println("가사 테스트 인덱스 >"+row.getSname()+", "+row.getLyrics().toUpperCase().replace(" ","").indexOf(cri.getKeyword()));
 					durianCount++;
 					durian.add(row);
-				}else {
-					System.out.println("테스트 인덱스 오류!");
 				}
 			}
 		}
