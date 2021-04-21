@@ -12,8 +12,7 @@
 
 		select snum, sname, stitle, singername, releasedate, genre,
 		replace(lyrics,'-','') lyrics, country, musicurl,
-		downloadfile, image, count from (select snum, sname, stitle, singername, releasedate, genre,
-		replace(lyrics,'"','&quot;') lyrics, country, musicurl, downloadfile, image, count from music) music where snum=#{snum}
+		downloadfile, image, count from music where snum=#{snum}
 
 	</select>
 
