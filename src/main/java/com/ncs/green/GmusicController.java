@@ -200,7 +200,8 @@ public class GmusicController {
 		mv.addObject("searchType", cri.getSearchType());
 		mv.addObject("UserKeyword", cri.getKeyword().replace("\"", "&quot;"));
 		cri.setKeyword(cri.getKeyword().replace(" ", ""));
-
+		
+		// 서치타입이 통합검색(all)이라면 jsp에서 보여줄 각 분야별 리스트에 순차적으로 담아주는 작업부터 한다.
 		if ("all".equals(cri.getSearchType())) {
 
 			cri.setSearchType("sname");
