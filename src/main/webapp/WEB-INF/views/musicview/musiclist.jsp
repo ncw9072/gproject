@@ -193,6 +193,20 @@
 		}
 	} //getCheckboxValue
 	
+	function payPage(){
+			$.ajax({ 
+				type:'Get',
+				url: 'payPage',
+				success:function(resultPage){
+					$('body').html('');
+					$('body').html(resultPage);
+					},
+				error:function(){
+					$('body').html("~~ 오류발생 ~~");
+				}
+			});//ajax
+	}//payPage
+	
 </script>
 <style>
 body {
@@ -520,7 +534,13 @@ a {
 	<h1>최신음악</h1>
 	<div id="section">
 		<form name="musiclistForm">
+			<c:if test="${loginVO.grade == 'c'}">
+			<button type="button" onclick="payPage()">플레이리스트</button>
+			</c:if>
+			<c:if test="${loginVO.grade == 'admin' || loginVO.grade == 'vvip' || loginVO.grade =='vip'}">
 			<button type="button" onclick="getCheckboxValue()">플레이리스트</button>
+			
+			</c:if>
 			<div id='result'></div>
 			<input type="hidden" id="snumVal" name="snumVal" value="${snumValSession}">
 			<table id="table">
@@ -553,7 +573,12 @@ a {
 						</td>
 						<td>
 							<div>
+								<c:if test="${loginVO.grade == 'admin' || loginVO.grade == 'vvip' || loginVO.grade == 'vip'}">
 								<button type="button" class="playbutten" name="sname" value="${row.snum}">${row.sname}</button>
+								</c:if>
+								<c:if test="${loginVO.grade == 'c'}">
+								<button type="button" onclick="payPage()">${row.sname}</button>
+								</c:if>
 							</div>
 							<div class="singername">${row.singername}</div>
 						</td>

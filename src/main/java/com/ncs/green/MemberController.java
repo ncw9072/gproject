@@ -243,8 +243,13 @@ public class MemberController {
 
 					request.getSession().setAttribute("loginID", vo.getId());
 					request.getSession().setAttribute("loginGRADE", vo.getGrade());
-					request.getSession().setAttribute("loginPW", password);
+//					request.getSession().setAttribute("loginPW", password);
 					request.getSession().setAttribute("userPickGenre1", vo.getGenre1()); // 섹션 1_1부분을 위해 추가
+					
+					// 로그인한 회원 정보 세션저장된 값
+					vo.setPassword(null); //vo에서 비밀번호 지움
+					request.getSession().setAttribute("loginVO", vo);//세션 통합 (비밀번호 제외)
+					
 					System.out.println("마이장르 확인용 => "+vo.getGenre1());
 //					mv.addObject("message", "로그인 성공!");
 					rttr.addFlashAttribute("message", "로그인 성공!");
@@ -388,5 +393,11 @@ public class MemberController {
 	}
 
 	// ----------------------------------마이페이지------------------------------------
-
+	@RequestMapping(value = "/payPage")
+	public ModelAndView payPage(ModelAndView mv, HttpServletRequest request){
+		mv.setViewName("member/payPage");
+		return mv;
+	}
+	
+	
 }
