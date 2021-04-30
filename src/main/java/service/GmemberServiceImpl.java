@@ -53,6 +53,11 @@ public class GmemberServiceImpl implements GmemberService {
 	public int userDuplicationCheck(GmemberVO vo) {
 		return dao.userDuplicationCheck(vo);
 	}
-
+	
+	//아이디 찾기
+	@Override
+	public GmemberVO searchIDCheck(GmemberVO vo) {
+		return dao.searchIDCheck(vo);
+	}
 
 }

@@ -57,4 +57,8 @@ public class GmemberDAO {
 		return sqlSession.selectOne(NS + "userDuplicationCheck", vo);
 	}
 	
+	// 아이디 찾기
+	public GmemberVO searchIDCheck(GmemberVO vo) {
+		return sqlSession.selectOne(NS+"searchIDCheck",vo);
+	}
 }

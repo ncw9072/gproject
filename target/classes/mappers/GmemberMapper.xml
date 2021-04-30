@@ -60,5 +60,8 @@
 		</choose>
 		
 	</select>
-
+	
+	<select id="searchIDCheck" resultType="vo.GmemberVO">
+		select * from gmember where email=#{email}
+	</select>
 </mapper>  

@@ -447,5 +447,26 @@ public class MemberController {
 		return mv;
 	}// searchPasswordCheck
 	
+	@RequestMapping(value = "/searchID")
+	public ModelAndView searchID(ModelAndView mv) {
+		mv.setViewName("member/searchIDPage");
+		return mv;
+	}// searchID
+	@RequestMapping(value = "/searchIDCheck")
+	public ModelAndView searchIDCheck(ModelAndView mv, HttpServletRequest request, GmemberVO vo) {
+		String phone = vo.getPhone();
+		vo = service.searchIDCheck(vo);
+		if(vo != null) {
+			if(vo.getPhone().equals(phone)) {
+				mv.addObject("message","회원님의 아이디는 "+vo.getId()+" 입니다.");
+				mv.setViewName("member/memberloginpage");
+			}else {
+				mv.addObject("message","아이디 또는 이메일이 가입정보와 일치하지 않습니다.");
+				mv.setViewName("member/searchIDPage");
+			}
+		}
+		return mv;
+	}// searchIDCheck
+	
 	
 }
