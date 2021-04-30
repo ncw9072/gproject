@@ -56,5 +56,5 @@ public class GmemberDAO {
 	public int userDuplicationCheck(GmemberVO vo) {
 		return sqlSession.selectOne(NS + "userDuplicationCheck", vo);
 	}
-
+	
 }

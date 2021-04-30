@@ -49,7 +49,7 @@ a {
             <td><input type="password" id="password" name="password" placeholder="비밀번호">
          <tr style="text-align: right;">
             <td><a href="search_id" class="search_id">아이디 찾기</a>&nbsp; 
-            <a href="search_password" class="search_password">비밀번호 찾기</a></td>
+            <a href="searchPassword" class="searchPassword">비밀번호 찾기</a></td>
          </tr>
          <tr>
               <td><input type="submit" id="login_button" value="로그인" ></td> 

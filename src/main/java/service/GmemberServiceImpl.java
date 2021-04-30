@@ -55,5 +55,4 @@ public class GmemberServiceImpl implements GmemberService {
 	}
 
 
-
 }

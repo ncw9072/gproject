@@ -28,6 +28,5 @@ public interface GmemberService {
 	
 	// id, email, phone 중복확인
 	public int userDuplicationCheck(GmemberVO vo);
-
 	
 }

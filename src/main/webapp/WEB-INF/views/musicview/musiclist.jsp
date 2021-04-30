@@ -116,35 +116,41 @@
 		// 곡명 버튼 눌렀을때 실행 
 		// 플레이 리스트에 단일로 실행됨
 		$("button[name=sname]").click(function() {
-
-			var buttonSnumVal = $(this).val()+',';
-
-			url = "playlist";
-			window.open(url, "playlistView","toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=340,height=720");
-       
-			document.musiclistForm.action =url;
-			document.musiclistForm.method="post";
-			document.musiclistForm.target="playlistView";
-         
-			// 항목 추가
-			var addsnumVal = $('input[name=snumVal]').val();
-			console.log('addsnumVal => ' + addsnumVal);
-			if (addsnumVal != null) {
-			   $('input[name=snumVal]').attr('value',addsnumVal+buttonSnumVal);
+			if(${loginVO.grade == 'c' || loginVO == null}){
+				location.href='payPage';
 			}else{
-				$('input[name=snumVal]').attr('value',buttonSnumVal);
+				var buttonSnumVal = $(this).val()+',';
+	
+				url = "playlist";
+				window.open(url, "playlistView","toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=340,height=720");
+	       
+				document.musiclistForm.action =url;
+				document.musiclistForm.method="post";
+				document.musiclistForm.target="playlistView";
+	         
+				// 항목 추가
+				var addsnumVal = $('input[name=snumVal]').val();
+				console.log('addsnumVal => ' + addsnumVal);
+				if (addsnumVal != null) {
+				   $('input[name=snumVal]').attr('value',addsnumVal+buttonSnumVal);
+				}else{
+					$('input[name=snumVal]').attr('value',buttonSnumVal);
+				}
+	      
+				document.musiclistForm.submit();
 			}
-      
-			document.musiclistForm.submit();
 		});
 		
 		// 뮤직비디오 버튼 눌렀을때 실행 
 		$("button[name=musicurl]").click(function() {
-
-			var musicurlVal = $(this).val();
-
-			url = musicurlVal+"?amp;autoplay=1";
-			window.open(url, "videoView","toolbar=no,location=no,status=no,scrollbars=no,resizable=no,width=600,height=400");
+			if(${loginVO.grade == 'c' || loginVO == null}){
+				location.href='payPage';
+			}else{
+				var musicurlVal = $(this).val();
+	
+				url = musicurlVal+"?amp;autoplay=1";
+				window.open(url, "videoView","toolbar=no,location=no,status=no,scrollbars=no,resizable=no,width=600,height=400");
+			}
 		});
       
 	});//ready *
@@ -156,56 +162,50 @@
 	// 체크박스(checkbox)에 선택 된 값 출력하기
 	// https://hianna.tistory.com/430 참고
 	function getCheckboxValue() {
-		// 선택된 목록 가져오기
-		const query = 'input[name="snum"]:checked';
-		const selectedEls = document.querySelectorAll(query);
-	  
-		// 선택된 목록에서 value 찾기
-		let result = '';
-		selectedEls.forEach((el) => {
-			result += el.value + ',';
-		});
-	    
-		// div에 출력 하기
-		document.getElementById('result').innerText
-		= result;
-	    
-		if(result != null && result.length > 0){
-			url = "playlist";
-			window.open(url, "playlistView","toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=340,height=720");
-		   
-			document.musiclistForm.action =url;
-			document.musiclistForm.method="post";
-			document.musiclistForm.target="playlistView";
+		if(${loginVO.grade == 'c' || loginVO == null}){
+			location.href='payPage';
+		}else{
+			// 선택된 목록 가져오기
+			const query = 'input[name="snum"]:checked';
+			const selectedEls = document.querySelectorAll(query);
+		  
+			// 선택된 목록에서 value 찾기
+			let result = '';
+			selectedEls.forEach((el) => {
+				result += el.value + ',';
+			});
 		    
-			// 항목 추가
-			var addsnumVal = $('input[name=snumVal]').val();
-			console.log('addsnumVal => ' + addsnumVal);
-			if (addsnumVal != null) {
-			   $('input[name=snumVal]').attr('value',addsnumVal+result);
-			}else{
-				$('input[name=snumVal]').attr('value',result);
+			// div에 출력 하기
+			document.getElementById('result').innerText
+			= result;
+		    
+			if(result != null && result.length > 0){
+				url = "playlist";
+				window.open(url, "playlistView","toolbar=no,menubar=yes,scrollbars=no,resizable=no,width=340,height=720");
+			   
+				document.musiclistForm.action =url;
+				document.musiclistForm.method="post";
+				document.musiclistForm.target="playlistView";
+			    
+				// 항목 추가
+				var addsnumVal = $('input[name=snumVal]').val();
+				console.log('addsnumVal => ' + addsnumVal);
+				if (addsnumVal != null) {
+				   $('input[name=snumVal]').attr('value',addsnumVal+result);
+				}else{
+					$('input[name=snumVal]').attr('value',result);
+				}
+			 	
+				document.musiclistForm.submit();
+			} else {
+				alert("선택된 곡이 없습니다.");
 			}
-		 	
-			document.musiclistForm.submit();
-		} else {
-			alert("선택된 곡이 없습니다.");
-		}
+		}	
 	} //getCheckboxValue
 	
 	function payPage(){
-			$.ajax({ 
-				type:'Get',
-				url: 'payPage',
-				success:function(resultPage){
-					$('body').html('');
-					$('body').html(resultPage);
-					},
-				error:function(){
-					$('body').html("~~ 오류발생 ~~");
-				}
-			});//ajax
-	}//payPage
+		location.href='payPage';
+	}//payPage 
 	
 </script>
 <style>
@@ -368,7 +368,7 @@ a {
 	vertical-align: middle;
 }
 
-.playbutten, .icon {
+.playbutten, .icon, .payButton {
 	background-color: transparent !important; /* 배경 없애기 */
 	border: none; /* 버튼 보더 없애기 */
 	padding: 0;
@@ -534,13 +534,13 @@ a {
 	<h1>최신음악</h1>
 	<div id="section">
 		<form name="musiclistForm">
-			<c:if test="${loginVO.grade == 'c'}">
-			<button type="button" onclick="payPage()">플레이리스트</button>
+			<c:if test="${loginVO.grade == 'c' || loginVO == null}">
+				<button type="button" onclick="payPage()">플레이리스트</button>
 			</c:if>
 			<c:if test="${loginVO.grade == 'admin' || loginVO.grade == 'vvip' || loginVO.grade =='vip'}">
 			<button type="button" onclick="getCheckboxValue()">플레이리스트</button>
-			
 			</c:if>
+
 			<div id='result'></div>
 			<input type="hidden" id="snumVal" name="snumVal" value="${snumValSession}">
 			<table id="table">
@@ -573,12 +573,7 @@ a {
 						</td>
 						<td>
 							<div>
-								<c:if test="${loginVO.grade == 'admin' || loginVO.grade == 'vvip' || loginVO.grade == 'vip'}">
-								<button type="button" class="playbutten" name="sname" value="${row.snum}">${row.sname}</button>
-								</c:if>
-								<c:if test="${loginVO.grade == 'c'}">
-								<button type="button" onclick="payPage()">${row.sname}</button>
-								</c:if>
+									<button type="button" class="playbutten" name="sname" value="${row.snum}">${row.sname}</button>
 							</div>
 							<div class="singername">${row.singername}</div>
 						</td>
@@ -589,14 +584,21 @@ a {
 							</button>
 						</td>
 						<td align="center">
-							<a href="dnload?dnfile=${row.downloadfile}">
-								<img src="resources/image/download_icon.png" width="30" height="30">
-							</a>
+							<c:if test="${loginVO.grade == 'c' || loginVO == null}">
+								<a href="payPage">
+									<img src="resources/image/download_icon.png" width="30" height="30">
+								</a>
+							</c:if>
+							<c:if test="${loginVO.grade == 'admin' || loginVO.grade == 'vvip' || loginVO.grade =='vip'}">
+								<a href="dnload?dnfile=${row.downloadfile}">
+									<img src="resources/image/download_icon.png" width="30" height="30">
+								</a>
+							</c:if>
 						</td>
 						<td align="center">
-							<button type="button" class="icon" name="musicurl" value="${row.musicurl}">
-								<img src="resources/image/videos_icon.png" width="30" height="30">
-							</button>
+								<button type="button" class="icon" name="musicurl" value="${row.musicurl}">
+									<img src="resources/image/videos_icon.png" width="30" height="30">
+								</button>
 						</td>
 						<td align="center">
 							<span>수정</span>
